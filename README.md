@@ -1,1 +1,2 @@
-# GJK's Learning notes
+# Learning
+My study notes
