@@ -10,7 +10,6 @@
         <module>jvm</module>
         <module>spring</module>
         <module>mybatis</module>
-        <module>huToolTest</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
