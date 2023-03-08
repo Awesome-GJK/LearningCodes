@@ -1,2 +1,0 @@
-# Learning
-My study notes
