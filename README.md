@@ -1,0 +1,1 @@
+# GJK's learning notes
