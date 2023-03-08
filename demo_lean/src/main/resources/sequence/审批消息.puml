@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+
+actor 审批人
+审批人-> 审批服务: 审批同意，结束审批
+activate 审批服务
+审批服务 -> 审批服务:发布审批消息事件
+审批服务 -> 审批服务:审批消息观察者处理事件
+审批服务 -> MQ:审批消息观察者发送MQ消息
+activate MQ
+deactivate 审批服务
+deactivate 审批服务
+MQ -> 业务系统:业务系统监听消息
+activate 业务系统
+deactivate MQ
+actor 发起人
+业务系统->发起人:发送审批消息
+deactivate 业务系统
+
+@enduml

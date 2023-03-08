@@ -1,0 +1,58 @@
+@startuml
+participant Actor
+Actor -> Controller : 批量新增上传文件
+activate Controller
+Controller -> Service : 批量新增上传文件
+activate Service
+Service -> Factory : 批量新增上传文件统一入口
+activate Factory
+Factory -> Factory : 获取Abstract具体子类
+Factory -> Abstract : 批量新增模板方法
+activate Abstract
+Abstract -> Abstract : 钩子方法，解析并获取Excel中的数据
+Abstract -> Abstract : 钩子方法，检查Excel数据条数、Sheet页数等
+Abstract -> executor :异步处理数据
+activate executor
+Abstract --> Factory : 返回上传结果
+deactivate Abstract
+Factory --> Service : 返回上传结果
+deactivate Factory
+Service --> Controller : 返回上传结果
+deactivate Service
+Controller --> Actor : 返回上传结果
+deactivate Controller
+executor -> Abstract : 钩子方法，检验并组装数据入库
+activate Abstract
+Abstract --> executor : 返回上传数据校验结果信息
+executor -> Abstract : 上传数据校验结果信息入库
+deactivate Abstract
+deactivate executor
+
+Actor -> Controller : 查看批量新增上传记录
+activate Controller
+Controller -> Service : 分页查询批量新增上传记录
+activate Service
+Service --> Controller : 返回批量新增上传记录
+deactivate Service
+Controller --> Actor : 返回批量新增上传记录
+deactivate Controller
+
+Actor -> Controller : 下载上传数据校验结果信息
+activate Controller
+Controller -> Service : 导出上传数据校验结果信息
+deactivate Controller
+activate Service
+Service -> Service : 查询上传数据校验结果信息
+Service -> Factory : 导出上传数据校验结果信息统一入口
+deactivate Service
+activate Factory
+Factory -> Factory : 获取Abstract具体子类
+Factory -> Abstract : 导出钩子方法
+deactivate Factory
+activate Abstract
+Abstract --> Actor : 下载文件
+deactivate Abstract
+
+
+
+@enduml

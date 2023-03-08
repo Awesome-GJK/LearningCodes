@@ -1,0 +1,64 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:新增券码兑换活动;
+:必要参数检查;
+partition 承担方校验 {
+if (是否属于云快充用户?) is (true) then
+  :设置承担方为云快充;
+else (false)
+  if (承担方是否为空?) is (false) then
+  else (true)
+      #pink:错误;
+      kill
+  endif
+endif
+}
+
+partition 活动用户范围校验 {
+if (选择用户方式和用户列表是否匹配?) is (true) then
+
+else (false)
+  #pink:错误;
+  kill
+endif
+}
+
+partition 活动名称校验 {
+if (活动名称是否唯一?) is (true) then
+
+else (false)
+  #pink:错误;
+  kill
+endif
+}
+
+partition 兑换码数量校验 {
+if (兑换码数量和 卡券库存是否匹配?) is (true) then
+
+else (false)
+  #pink:错误;
+  kill
+endif
+}
+
+partition 活动时间校验 {
+if (活动时间校验?) is (true) then
+  :设置活动状态;
+else (false)
+  #pink:错误;
+  kill
+endif
+}
+partition 活动数据入库 {
+:券码活动信息入库;
+:活动卡券配置信息入库;
+:活动用户范围入库;
+:生成兑换码信息并入库;
+}
+:锁定指定卡券;
+:活动记录留痕;
+
+stop
+@enduml

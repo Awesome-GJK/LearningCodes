@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+
+actor 用户
+用户-> 审批服务: 审批/查看审批详情
+activate 审批服务
+审批服务 -> tcs_server服务器:判断是否存在附件对应的html文件
+activate tcs_server服务器
+tcs_server服务器 --> 审批服务:返回结果
+deactivate tcs_server服务器
+审批服务 -> tcs_server服务器:不存在，从tcs_server服务器获取文件流、
+activate tcs_server服务器
+tcs_server服务器 --> 审批服务:返回文件流
+deactivate tcs_server服务器
+审批服务 -> 审批服务:文件转html
+审批服务 -> tcs_server服务器:html文件存储到tcs_server服务器中
+activate tcs_server服务器
+deactivate tcs_server服务器
+审批服务 -> 审批服务:将预览链接组装到返回结果中
+审批服务 --> 用户:打开审批详情页面，点击相关文件预览
+deactivate 审批服务
+@enduml

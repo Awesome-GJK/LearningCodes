@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+
+actor 用户
+用户 -> 详情页面: 上一条/下一条
+
+activate 详情页面
+详情页面 ->详情页面: 根据当前记录的序号及上一条/下一条操作,计算单条数据的分页参数
+详情页面 -> 后端: 根据查询条件和分页参数，查询上一条/下一条数据
+
+activate 后端
+后端 --> 详情页面: 返回上一条/下一条数据
+
+详情页面 --> 用户: 展示上一条/下一条数据
+
+deactivate 后端
+deactivate 详情页面
+
+
+
+
+@enduml

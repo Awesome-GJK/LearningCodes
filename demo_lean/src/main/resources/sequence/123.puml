@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+'Alice -> Bob: Authentication Request
+'Bob --> Alice: Authentication Response
+'
+'Alice -> Bob: Another authentication Request
+'Alice <-- Bob: another authentication Response
+actor 用户
+activate 签章服务
+用户 -> 签章服务: 点击退出按钮
+activate 文书服务
+签章服务 -> 文书服务: 获取当前阶段预期盖章数和当前阶段已盖章数
+文书服务 -> 文书服务: 根据OFD已盖章数和前盖章阶段已盖章数计算当前阶段已盖章数
+文书服务 --> 签章服务: 返回当前阶段预期盖章数和当前阶段已盖章数
+deactivate 文书服务
+签章服务 --> 用户: 提示信息
+deactivate 签章服务
+@enduml

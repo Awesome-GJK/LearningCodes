@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor 运维
+运维-> 文书服务: 提供缺失文号
+activate 文书服务
+
+文书服务 -> 文书服务:根据缺失文号获取所有WsList
+
+文书服务 -> 审批服务:获取文书对应的表单数据和线下审批件数据
+activate 审批服务
+
+审批服务 -> 审批服务: 文书id匹配线上线下审批,获取审批的表单数据和线下审批件数据
+审批服务 --> 文书服务: 返回数据
+deactivate 审批服务
+
+文书服务 -> 文书服务: 生成表单和线下审批件，信息入wsxx_ext表
+文书服务 -> 归档系统: 文书归档
+activate 归档系统
+归档系统 --> 文书服务: 返回成功失败
+deactivate 归档系统
+deactivate 文书服务
+
+
+
+
+@enduml

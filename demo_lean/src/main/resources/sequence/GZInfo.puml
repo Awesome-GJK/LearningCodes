@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+'Alice -> Bob: Authentication Request
+'Bob --> Alice: Authentication Response
+'
+'Alice -> Bob: Another authentication Request
+'Alice <-- Bob: another authentication Response
+activate 文书服务
+文书服务 -> 签章服务:回调接口,修改当前盖章记录状态(提供当前盖章阶段已盖章数和预期盖章数)
+activate 签章服务
+签章服务 -> 签章服务:根据已盖章数和当前盖章记录预期盖章数判断是否修改当前盖章记录状态
+签章服务 -> 签章服务:根据已盖章数和预期盖章数判断当前盖章阶段是否完成
+签章服务 --> 文书服务:返回当前盖章记录是否完成，和当前盖章阶段是否完成
+deactivate 签章服务
+deactivate 文书服务
+
+@enduml

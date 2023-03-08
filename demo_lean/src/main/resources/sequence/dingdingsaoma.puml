@@ -1,0 +1,63 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor 用户
+用户 -> 前端: 打开登录页面
+activate 前端
+前端 -> BaseJurServer: 调用接口，获取钉钉配置信息
+activate BaseJurServer
+BaseJurServer -> Iop_Sso: 调用接口，获取钉钉配置信息
+activate Iop_Sso
+Iop_Sso --> BaseJurServer: 返回钉钉配置信息
+deactivate Iop_Sso
+BaseJurServer --> 前端: 返回钉钉配置信息
+deactivate BaseJurServer
+deactivate 前端
+
+用户 -> 前端: 钉钉扫码登录
+activate 前端
+前端 -> 钉钉: 携带钉钉配置信息，调用钉钉接口
+activate 钉钉
+钉钉 --> 前端: 返回code
+deactivate 钉钉
+
+前端 -> BaseJurServer: 调用接口，将code转成userInfo
+activate BaseJurServer
+BaseJurServer -> Iop_Sso: 调用接口，将code转成userInfo
+activate Iop_Sso
+Iop_Sso -> 钉钉:携带code,调用接口，获取钉钉unionId
+activate 钉钉
+钉钉 --> Iop_Sso: 返回unionId
+deactivate 钉钉
+
+Iop_Sso -> 钉钉:携带unionId,调用接口，获取钉钉userId
+activate 钉钉
+钉钉 --> Iop_Sso: 返回userId
+deactivate 钉钉
+
+Iop_Sso -> 钉钉:调用接口，获取钉钉accessToken
+activate 钉钉
+钉钉 --> Iop_Sso: 返回accessToken
+deactivate 钉钉
+
+Iop_Sso -> 钉钉:携带userId和accessToken，调用接口，获取钉钉userInfo
+activate 钉钉
+钉钉 --> Iop_Sso: 返回userInfo
+deactivate 钉钉
+
+Iop_Sso --> BaseJurServer: 返回userInfo
+deactivate Iop_Sso
+BaseJurServer --> 前端: 返回userInfo
+deactivate BaseJurServer
+
+
+前端 -> BaseJurServer: 携带用户的手机号码，调用登录接口
+activate BaseJurServer
+BaseJurServer -> BaseJurServer: 登录逻辑
+BaseJurServer --> 前端: 返回登录成功失败情况
+deactivate BaseJurServer
+
+
+
+@enduml

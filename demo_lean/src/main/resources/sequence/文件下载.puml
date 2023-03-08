@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+
+actor 用户
+用户-> 审批服务: 点击文件下载
+activate 审批服务
+审批服务 -> tcs_server服务器:获取文件流
+activate tcs_server服务器
+tcs_server服务器 --> 审批服务:返回文件流
+deactivate tcs_server服务器
+审批服务 --> 用户:返回文件流
+deactivate 审批服务
+
+@enduml
