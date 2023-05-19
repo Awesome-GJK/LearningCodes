@@ -1,0 +1,33 @@
+@startuml
+!theme toy
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor C端用户
+C端用户 -> 注册窗口 : 注册
+activate 注册窗口
+注册窗口 -> BaseServer:用户注册
+activate BaseServer
+BaseServer -> BaseServer: 内部逻辑
+BaseServer -> Kafka: 推送C端用户注册消息
+BaseServer --> 注册窗口: 注册成功
+deactivate BaseServer
+注册窗口 --> C端用户: 注册成功
+deactivate 注册窗口
+
+ActivityServer -> Kafka: 拉取C端用户注册消息
+activate ActivityServer
+Kafka --> ActivityServer: 返回消息
+ActivityServer -> ActivityServer: 查询进行中的活动列表
+ActivityServer -> Redis : 获取每个活动注册用户数
+activate Redis
+Redis --> ActivityServer: 返回每个活动注册用户数
+deactivate Redis
+ActivityServer -> ActivityServer: 赠送标记为、遍历、注册数+1、赠送会员
+activate Redis
+ActivityServer -> Redis: 更新注册用户数
+deactivate Redis
+ActivityServer -> Kafka: ack确认
+deactivate ActivityServer
+
+@enduml

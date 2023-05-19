@@ -1,5 +1,4 @@
-import java.util.Collections;
-import java.util.List;
+import com.alibaba.fastjson.JSONObject;
 
 
 /**
@@ -14,9 +13,9 @@ public class Test {
 
 
     public static void main(String args[]) {
+        String str = "{\"data\":\"SzFW5qOZ2MViICUWCzqfEieWMA8t3hcBLHMg73iI36FHWJUjG2OQeN4kzDwX2bn7AFBs/qkXceBR7whcQsGUvl7PXKKB8uqpR9bQ1hoRpw4=\",\"resultCode\":\"0\",\"resultDesc\":\"请求成功\"}";
 
-        List<String> list = Collections.emptyList();
-        System.out.println(false);
+        JSONObject notifyResult = JSONObject.parseObject(str);
 
     }
 
