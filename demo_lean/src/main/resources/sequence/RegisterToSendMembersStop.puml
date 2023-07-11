@@ -1,0 +1,20 @@
+@startuml
+!theme toy
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor 管理员
+管理员 -> 后台管理页面: 点击停用按钮
+activate 后台管理页面
+后台管理页面 -> activityServer: 调用手动停用接口
+activate activityServer
+activityServer -> activityServer: 修改活动状态为手动停用
+activityServer -> Redis: 清除用户注册记录数
+activate Redis
+Redis --> activityServer: true or false
+deactivate Redis
+activityServer --> 后台管理页面: 停用成功
+deactivate activityServer
+后台管理页面 --> 管理员: 停用成功
+deactivate 后台管理页面
+@enduml

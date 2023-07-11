@@ -23,7 +23,17 @@ ActivityServer -> Redis : 获取每个活动注册用户数
 activate Redis
 Redis --> ActivityServer: 返回每个活动注册用户数
 deactivate Redis
-ActivityServer -> ActivityServer: 赠送标记为、遍历、注册数+1、赠送会员
+ActivityServer -> ActivityServer: 创建赠送标记位，默认false
+loop 活动列表
+ActivityServer -> ActivityServer: 注册用户数+1
+alt 赠送标记为true & 注册用户数%10<活动赠送数
+ActivityServer -> ActivityServer: 赠送会员
+ActivityServer -> ActivityServer: 修改标记位为true
+ActivityServer -> ActivityServer: 用户参与活动记录
+else
+ActivityServer -> ActivityServer: 跳出
+end
+end
 activate Redis
 ActivityServer -> Redis: 更新注册用户数
 deactivate Redis

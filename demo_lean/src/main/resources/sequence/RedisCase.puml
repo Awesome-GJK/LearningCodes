@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+Edit online
+@startuml
+left to right direction
+package register_members {
+  (activityId1) --> (user_number1)
+  (activityId2) --> (user_number2)
+  (activityId3) --> (user_number3)
+  (activityId4) --> (user_number4)
+}
+@enduml

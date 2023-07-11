@@ -1,0 +1,12 @@
+@startuml
+!theme toy
+'https://plantuml.com/sequence-diagram
+
+autonumber
+XxlJob -> activityServer: 自动启用定时任务
+activate activityServer
+activityServer -> activityServer: 修改活动状态为进行中
+activityServer -> Redis: 插入(actId，0)的键值对
+deactivate activityServer
+
+@enduml
