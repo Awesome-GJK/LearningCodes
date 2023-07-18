@@ -1,0 +1,30 @@
+@startuml
+!theme toy
+'https://plantuml.com/sequence-diagram
+
+actor user
+activate ykc_app
+user -> ykc_app: 进入电站详情页
+ykc_app -> poly: 电站详情页聚合接口
+activate poly
+group async
+    poly -> base: 获取电站基本信息
+    activate base
+    base --> poly: 返回电站基本信息\n(<color red>包含电站归属运营商营业执照(有水印)</color>)
+    deactivate base
+end
+group async
+    poly -> price: 获取电站价格信息
+    activate price
+    price --> poly: 返回电站价格信息
+    deactivate price
+end
+poly -> finance: 获取电站交易主体信息
+activate finance
+finance --> poly: 返回电站交易主体信息\n(<color red>包含交易主体营业执照(无水印)</color>)
+deactivate finance
+poly -> poly: 交易主体营业执照url拼接加水印后缀
+poly --> ykc_app: 返回电站详情页聚合信息
+deactivate poly
+ykc_app --> user: 展示电站详情页聚合信息\n(<color red>选中电站价，展示电站归属运营商营业执照</color>;\n<color red>选中云享价，展示交易主体营业执照</color>)
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+!theme toy
+'https://plantuml.com/sequence-diagram
+
+autonumber
+activate finance
+finance -> finance:进件逻辑
+finance -> base:同步营业执照信息
+deactivate finance
+activate base
+base -> base:营业执照Url加水印后缀
+base -> DB:带水印url入库
+deactivate base
+autonumber stop
+@enduml
