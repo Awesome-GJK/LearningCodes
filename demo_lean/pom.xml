@@ -10,6 +10,7 @@
         <module>jvm</module>
         <module>spring</module>
         <module>mybatis</module>
+        <module>cache</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
