@@ -3,40 +3,38 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
-actor C端用户
-C端用户 -> 注册窗口 : 注册
+actor 用户
+用户 -> 注册窗口 : 注册
 activate 注册窗口
 注册窗口 -> BaseServer:用户注册
 activate BaseServer
 BaseServer -> BaseServer: 内部逻辑
-BaseServer -> Kafka: 推送C端用户注册消息
+BaseServer -> Kafka: 推送用户注册消息
 BaseServer --> 注册窗口: 注册成功
 deactivate BaseServer
-注册窗口 --> C端用户: 注册成功
+注册窗口 --> 用户: 注册成功
 deactivate 注册窗口
 
-ActivityServer -> Kafka: 拉取C端用户注册消息
+ActivityServer -> Kafka: 拉取用户注册消息
 activate ActivityServer
 Kafka --> ActivityServer: 返回消息
-ActivityServer -> ActivityServer: 查询进行中的活动列表
-ActivityServer -> Redis : 获取每个活动注册用户数
-activate Redis
-Redis --> ActivityServer: 返回每个活动注册用户数
-deactivate Redis
+ActivityServer -> ActivityServer: 判断是否为批量注册，批量注册不处理
+ActivityServer -> ActivityServer: 判断是否为C端用户，非C端用户不处理
+ActivityServer -> ActivityServer: 根据城市id查询进行中的注册送会员活动id列表(缓存)
 ActivityServer -> ActivityServer: 创建赠送标记位，默认false
-loop 活动列表
-ActivityServer -> ActivityServer: 注册用户数+1
-alt 赠送标记为true & 注册用户数%10<活动赠送数
-ActivityServer -> ActivityServer: 赠送会员
-ActivityServer -> ActivityServer: 修改标记位为true
-ActivityServer -> ActivityServer: 用户参与活动记录
-else
-ActivityServer -> ActivityServer: 跳出
-end
-end
+loop 活动id列表
+ActivityServer -> ActivityServer: 根据注册送会员活动Id查询活动信息
+ActivityServer -> Redis: 向指定活动id的活动注册用户数+1
 activate Redis
-ActivityServer -> Redis: 更新注册用户数
+Redis --> ActivityServer: 返回此活动注册用户数
 deactivate Redis
+alt 赠送标记为true & 注册用户数%10<=活动赠送规则
+ActivityServer -> ActivityServer: 赠送会员
+ActivityServer -> ActivityServer: 用户参与活动记录
+ActivityServer -> ActivityServer: 修改标记位为true
+else
+end
+end
 ActivityServer -> Kafka: ack确认
 deactivate ActivityServer
 

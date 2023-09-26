@@ -1,4 +1,8 @@
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 
 
 /**
@@ -13,9 +17,14 @@ public class Test {
 
 
     public static void main(String args[]) {
-        String str = "{\"data\":\"SzFW5qOZ2MViICUWCzqfEieWMA8t3hcBLHMg73iI36FHWJUjG2OQeN4kzDwX2bn7AFBs/qkXceBR7whcQsGUvl7PXKKB8uqpR9bQ1hoRpw4=\",\"resultCode\":\"0\",\"resultDesc\":\"请求成功\"}";
+        int[] ints = new int[5];
+        System.out.println(JSON.toJSONString(ints));
 
-        JSONObject notifyResult = JSONObject.parseObject(str);
+        int[] arr = {0,1,2,3,4};
+        System.out.println(JSON.toJSONString(arr));
+        arr[1] = 5;
+        System.out.println(JSON.toJSONString(arr));
+
 
     }
 

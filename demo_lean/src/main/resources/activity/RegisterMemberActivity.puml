@@ -1,0 +1,34 @@
+@startuml
+!theme reddress-darkorange
+'https://plantuml.com/activity-diagram-beta
+
+title 注册送会员业务流程图 \n
+
+start
+
+:创建会员售卖活动;
+
+:创建注册送会员活动;
+
+:注册送会员活动绑定会员售卖活动;
+
+:注册新用户;
+
+if (是否为C端用户？) then (是)
+
+  if (注册城市是否有进行中的注册送会员活动) then (是)
+
+    if (是否满足注册送会员活动的赠送规则) then (是)
+        :赠送会员;
+    else(否)
+    endif
+
+  else  (否)
+  endif
+
+else (否)
+endif
+
+stop
+
+@enduml
