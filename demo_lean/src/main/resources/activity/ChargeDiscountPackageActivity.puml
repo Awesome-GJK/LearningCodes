@@ -1,0 +1,35 @@
+@startuml
+!theme reddress-darkorange
+'https://plantuml.com/activity-diagram-beta
+
+title 充电优惠包业务流程图 \n
+
+start
+
+:创建抵扣卡、优惠券;
+
+:创建充电优惠包活动;
+
+:充电优惠包活动绑定抵扣卡、优惠券;
+
+:移动端展示最新充电优惠包活动信息;
+
+if (当前城市是否有优惠包活动？) then (是)
+
+    :用户购买充电优惠包;
+
+    if (用户是否支付金额？) then (是)
+
+        :发放优惠包中的抵扣卡、优惠券;
+
+        if (是否发放成功) then (是)
+        else (否)
+            :定时任务补发;
+        endif
+    else (否)
+    endif
+else(否)
+endif
+stop
+
+@enduml

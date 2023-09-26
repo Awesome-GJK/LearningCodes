@@ -1,0 +1,43 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!theme toy
+
+autonumber
+
+actor user
+user -> client: 进入首页、电站详情页、个人中心
+client -> activityServer: 查询最新的优惠包活动
+activate activityServer
+activityServer -> localCache: 根据userId查询userType
+activate localCache
+localCache --> activityServer: 返回value
+deactivate localCache
+alt userType不为空
+    activityServer -> activityServer: value转成userType
+else userType为空
+    activityServer -> baseServer: 根据userId查询userType
+    activate baseServer
+    baseServer --> activityServer: 返回userType
+    deactivate baseServer
+end
+
+alt 请求体为空 || cityCode为空 || userType不等于7和8
+    activityServer --> client: 返回null
+else
+    activityServer -> activityServer: 根据cityCode和userType查询进行中的充电优惠包活动，\n 根据修改时间倒序
+    activityServer -> activityServer: 根据cityCode和userType查询查12小时内生效的充电优惠包活动，\n 根据开始时间正序
+    activityServer -> activityServer: 合并进行中的和12小时内生效的充电优惠包活动
+    alt 活动list > 1
+        activityServer -> activityServer:设置更多标记为true
+    else
+        activityServer -> activityServer:设置更多标记为false
+    end
+    activityServer -> activityServer: 根据maxSize截取活动list
+    activityServer -> activityServer: 根据活动list中的packageId,批量查询卡券id
+    activityServer -> activityServer: 根据卡券id,批量查询卡券信息
+    activityServer -> activityServer: 组装活动信息、抢购进度、卡券信息
+    activityServer --> client: 返回最新的优惠包活动信息
+end
+deactivate activityServer
+client --> user :展示最新的优惠包活动信息
+@enduml
