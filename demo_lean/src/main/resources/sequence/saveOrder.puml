@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!theme toy
+
+autonumber
+
+actor user
+user -> client: 点击支付按钮，拉起付款窗口
+client -> activityServer: 充电优惠包下单
+activate activityServer
+activityServer -> activityServer: 根据packageId查询优惠包金额
+activityServer -> activityServer: 根据activityId查询优惠包活动基础信息
+activityServer -> activityServer: 组装优惠包订单信息，并保存入库
+activityServer -> activityServer: 扣减优惠包库存
+activityServer -> activityServer: 参数补充金额、订单序列号信息
+activityServer -> financeServer: 调用支付接口
+activate financeServer
+financeServer --> activityServer: 返回支付信息
+deactivate financeServer
+activityServer --> client: 返回支付信息
+deactivate activityServer
+client --> user: 展示支付信息
+@enduml
