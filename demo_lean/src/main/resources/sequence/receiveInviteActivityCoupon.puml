@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!theme toy
+autonumber
+
+actor user
+user -> client: 点击领取奖励
+client -> activityServer: 调用领取邀新活动优惠券接口
+activate activityServer
+activityServer -> activityServer: 根据活动id查询活动信息
+alt 活动状态不是进行中
+    activityServer --> client: 返回“活动已结束”提示语
+end
+activityServer -> baseServer:查询邀请人和受邀人用户信息
+activate baseServer
+baseServer --> activityServer: 返回邀请人和受邀人用户信息
+deactivate baseServer
+alt 受邀人和邀请人信息为空
+    activityServer --> client: 返回“用户不存在”提示语
+end
+activityServer -> activityServer: 根据受邀人的新老用户属性，\n 获取不同的奖励配置
+activityServer -> activityServer: 构建发放奖励参数
+group 发放奖励
+    alt 邀请人和受邀人为同一人
+        activityServer -> activityServer: 构建带有“不能领取自己分享的活动”提示语的结果集
+    else 当前手机号码是否已领取过
+        activityServer -> activityServer: 构建带有“当前手机号已领过券”提示语的结果集
+    else 账号是否已领取过
+        activityServer -> activityServer: 构建带有“当前账号已领过券”提示语的结果集
+    else 判断活动是否已经停止
+        activityServer -> activityServer: 构建带有“当前活动状态不是进行中”提示语的结果集
+    else
+        activityServer -> baseServer: 根据受邀人id查询受邀人信息
+        activate baseServer
+        baseServer --> activityServer: 返回邀请人和受邀人用户信息
+        deactivate baseServer
+        activityServer -> activityServer: 构建发券参数\n 发放优惠券\n 返回发放结果
+        alt 发放结果为失败
+            alt 发放结果为卡券不足时
+                activityServer -> activityServer: 修改活动状态为已结束(卡券不足)
+                activityServer -> activityServer: 构建带有“券库存不足，活动停止！”提示语的结果集
+            else
+                activityServer -> activityServer: 构建带有“发券异常！”提示语的结果集
+            end
+        end
+        activityServer -> activityServer:生成或修改邀请人活动参与记录
+        activityServer -> activityServer:生成邀请明细记录
+        activityServer -> activityServer:构建“请求成功”结果集
+    end
+end
+activityServer -> baseServer : 受邀人所属机构转为J
+activate baseServer
+deactivate baseServer
+activityServer -> activityServer: 往结果集中塞入受邀人可获取的优惠券Id
+activityServer --> client: 返回结果集
+deactivate activityServer
+client --> user: 展示领取结果
+@enduml
