@@ -1,0 +1,54 @@
+@startuml
+!theme toy
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor user1
+user1 -> client:充电结算
+client -> orderServer:结算订单
+activate orderServer
+orderServer -> orderServer:内部逻辑
+orderServer -> Kafka:发送订单结算消息
+deactivate orderServer
+activityServer -> Kafka:接收订单结算消息
+activate activityServer
+alt 是否是第一次充电
+    activityServer -> activityServer:首充活动逻辑
+    activityServer -> activityServer:单充活动逻辑
+    group 邀请有礼活动逻辑
+        activityServer -> activityServer:查询用户作为受邀人\n 且是新注册用户，\n 且未给邀请人发放卡券的邀请记录明细集合
+        loop 遍历邀请记录明细集合
+            activityServer -> activityServer:查询当前明细对应的活动状态
+            alt 活动状态为进行中
+                activityServer -> activityServer:查询活动的邀请人返券配置及规则
+                alt 受邀人充电金额满足邀请人返券规则
+                    activityServer -> activityServer:根据邀请人返券配置中的优惠券Id查询优惠券信息
+                    activityServer -> baseServer:根据邀请人id查询邀请人信息
+                    activate baseServer
+                    baseServer --> activityServer:返回用户信息
+                    deactivate
+                    activityServer -> activityServer: 调用通用发券方法，并获取发券结果
+                    alt 发放结果为失败
+                        alt 发放结果为卡券不足时
+                            activityServer -> activityServer: 修改活动状态为已结束(卡券不足)
+                            activityServer -> activityServer: 构建带有“券库存不足，活动停止！”提示语的结果集
+                        else
+                            activityServer -> activityServer: 构建带有“邀请有礼活动邀请人返券奖励，发放异常！”提示语的结果集
+                        end
+                    else
+                        activityServer -> activityServer: 更新邀请明细的状态
+                        activityServer -> activityServer: 更新邀请有礼参与记录中的数量统计
+                    end
+
+                end
+            end
+        end
+    end
+else
+    activityServer -> activityServer:单充活动逻辑
+end
+deactivate activityServer
+
+
+@enduml
