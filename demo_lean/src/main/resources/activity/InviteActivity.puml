@@ -1,0 +1,32 @@
+@startuml
+!theme reddress-darkorange
+'https://plantuml.com/activity-diagram-beta
+
+title 邀请有礼业务流程图 \n
+
+start
+
+:创建邀请有礼活动;
+
+:C端用户1进入个人中心，点击邀请有礼;
+
+:生成二维码或者链接，并分享给C端用户2;
+
+:C端用户2扫码或者点击链接;
+
+:C端用户2领取奖励;
+
+:发放奖励;
+
+:记录邀请人活动参与记录;
+
+:记录邀请记录明细;
+
+:受邀人所属机构转为J;
+
+:受邀人完成首冲或其他条件;
+
+:给邀请人发放奖励;
+stop
+
+@enduml
