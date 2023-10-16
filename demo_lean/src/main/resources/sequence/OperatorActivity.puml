@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!theme toy
+autonumber
+
+actor user
+user -> client:充电结束
+client -> OrderServer:充电订单结算
+activate OrderServer
+OrderServer -> OrderServer:内部结算订单逻辑
+OrderServer -> Kafka:发送充电订单结算消息
+OrderServer --> client:充电订单结算成功
+deactivate OrderServer
+
+ActivityServer -> Kafka:拉取充电订单结算消息
+activate ActivityServer
+ActivityServer -> BaseServer:根据用户Id查询用户信息
+activate BaseServer
+BaseServer --> ActivityServer:返回用户信息
+deactivate BaseServer
+alt 判断用户是否是云快充C端用户
+    ActivityServer -> ActivityServer:根据电站Id查询支持的充电排行榜活动Id
+    alt 判断活动Id是否不为空
+        ActivityServer -> ActivityServer:根据订单序列号查询充电参与记录
+        alt 判断充电记录是否不存在
+            ActivityServer -> ActivityServer:新增充电记录
+        end
+    end
+end
+deactivate ActivityServer
+@enduml

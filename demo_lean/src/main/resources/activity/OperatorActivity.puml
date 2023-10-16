@@ -1,0 +1,27 @@
+@startuml
+!theme reddress-darkorange
+'https://plantuml.com/activity-diagram-beta
+
+title 充电排行榜业务流程图 \n
+
+start
+
+:创建充电排行榜活动;
+
+:用户充电;
+
+if (是否为C端用户？) then (是)
+
+  if (当前电站是否有充电排行榜活动) then (是)
+
+    :记录用户充电量;
+
+  else  (否)
+  endif
+
+else (否)
+endif
+
+stop
+
+@enduml
