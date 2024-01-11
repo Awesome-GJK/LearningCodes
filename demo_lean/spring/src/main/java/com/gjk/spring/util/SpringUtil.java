@@ -2,6 +2,7 @@ package com.gjk.spring.util;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * SpringUtil
@@ -10,6 +11,7 @@ import org.springframework.context.ApplicationContextAware;
  * @date: 2021/9/27 16:59
  * @description:
  */
+@Component
 public class SpringUtil implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
