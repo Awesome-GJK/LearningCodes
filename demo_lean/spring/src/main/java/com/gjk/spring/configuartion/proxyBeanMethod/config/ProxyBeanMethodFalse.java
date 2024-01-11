@@ -1,11 +1,10 @@
 package com.gjk.spring.configuartion.proxyBeanMethod.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.gjk.spring.configuartion.proxyBeanMethod.bean.Student;
+import com.gjk.spring.configuartion.proxyBeanMethod.bean.Teacher;
 
 /**
  * ProxyBeanMethodFalse
@@ -19,14 +18,9 @@ import com.gjk.spring.configuartion.proxyBeanMethod.bean.Student;
 public class ProxyBeanMethodFalse {
 
     @Bean
-    public Student student1(){
-        Student student1 = new Student("刘涛");
-        return student1;
+    public Teacher teacher(){
+        Teacher teacher = new Teacher("刘涛");
+        return teacher;
     }
 
-//    @Bean
-//    public Student student2(){
-//        Student student2 = new Student("李磊");
-//        return student2;
-//    }
 }

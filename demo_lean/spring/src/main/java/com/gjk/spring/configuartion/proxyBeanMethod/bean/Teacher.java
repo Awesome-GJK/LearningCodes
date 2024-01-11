@@ -2,21 +2,19 @@ package com.gjk.spring.configuartion.proxyBeanMethod.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * Student
+ * Teacher
  *
  * @author: GJK
- * @date: 2024/1/11 12:00
+ * @date: 2024/1/11 12:46
  * @description:
  */
 @Data
 @AllArgsConstructor
-public class Student {
+@NoArgsConstructor
+public class Teacher {
 
     private String name;
-
-    public void speekName(){
-        System.out.println("my name is " + name);
-    }
 }
