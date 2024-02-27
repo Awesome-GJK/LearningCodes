@@ -1,6 +1,6 @@
 package main.java;
 
-import com.alibaba.fastjson.JSON;
+import cn.hutool.core.text.CharSequenceUtil;
 
 
 /**
@@ -15,14 +15,15 @@ public class Test {
 
 
     public static void main(String args[]) {
-        int[] ints = new int[5];
-        System.out.println(JSON.toJSONString(ints));
+        String str1 = "132456789978 ";
+        String str2 = "wqeqeqeqeqwe ";
+        String str3 = "13WW4567qw123 ";
 
-        int[] arr = {0,1,2,3,4};
-        System.out.println(JSON.toJSONString(arr));
-        arr[1] = 5;
-        System.out.println(JSON.toJSONString(arr));
-
+        System.out.println(CharSequenceUtil.isNumeric(str1));
+        System.out.println(CharSequenceUtil.isAllCharMatch(str2, Character::isLetter));
+        System.out.println(CharSequenceUtil.isAllCharMatch(str3, Character::isLetterOrDigit));
+        System.out.println(str1.length());
+        System.out.println(str2.length());
 
     }
 

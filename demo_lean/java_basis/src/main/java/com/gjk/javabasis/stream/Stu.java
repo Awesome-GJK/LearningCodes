@@ -1,5 +1,7 @@
 package com.gjk.javabasis.stream;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +22,5 @@ public class Stu {
     String className;
     Double ywCore;
     Double sxCore;
+    BigDecimal yyCore;
 }
