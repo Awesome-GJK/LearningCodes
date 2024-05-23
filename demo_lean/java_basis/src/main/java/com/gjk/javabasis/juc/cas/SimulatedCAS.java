@@ -1,5 +1,9 @@
 package com.gjk.javabasis.juc.cas;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * SimulatedCAS
  *
@@ -14,6 +18,13 @@ public class SimulatedCAS {
     void addOne(){
         while (!cas(count, count+1)){
         }
+    }
+
+    public static void main(String args[]) {
+        List<String> collect = Stream.of("10", "200").collect(Collectors.toList());
+        System.out.println(collect.stream().anyMatch(t -> "200".equals(t)));
+        System.out.println(collect.stream().allMatch(t -> "200".equals(t)));
+
     }
 
     synchronized boolean cas(int expectValue, int newValue){

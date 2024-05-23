@@ -2,14 +2,12 @@ package main.java;
 
 import java.util.List;
 
-import lombok.Data;
 
 /**
  * @Description: 活动用户相关信息
  * @Author: zhutao
  * @Date: 2020/6/17
  */
-@Data
 public class ActivityUserInfo {
 
     /**

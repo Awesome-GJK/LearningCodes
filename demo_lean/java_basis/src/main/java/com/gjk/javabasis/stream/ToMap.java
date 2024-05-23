@@ -10,12 +10,12 @@ import java.util.stream.Stream;
 import com.google.common.collect.Lists;
 
 /**
- * @Classname MergeMap
+ * @Classname ToMap
  * @Description
  * @Date 2024/2/18 14:28
  * @Created by gaojiankang
  */
-public class MergeMap {
+public class ToMap {
 
 
     public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class MergeMap {
     }
 
     /**
-     * 两个Map<String, List<String>>合并，相同key的值也合并
+     * 两个Map<String, List<String>>合并，相同key的List合并
      */
     private static void mergeMapAndList() {
         Map<String, List<String>> map1 = new HashMap<>();

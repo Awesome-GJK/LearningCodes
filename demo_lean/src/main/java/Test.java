@@ -1,6 +1,9 @@
 package main.java;
 
-import cn.hutool.core.text.CharSequenceUtil;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 
 /**
@@ -15,15 +18,9 @@ public class Test {
 
 
     public static void main(String args[]) {
-        String str1 = "132456789978 ";
-        String str2 = "wqeqeqeqeqwe ";
-        String str3 = "13WW4567qw123 ";
-
-        System.out.println(CharSequenceUtil.isNumeric(str1));
-        System.out.println(CharSequenceUtil.isAllCharMatch(str2, Character::isLetter));
-        System.out.println(CharSequenceUtil.isAllCharMatch(str3, Character::isLetterOrDigit));
-        System.out.println(str1.length());
-        System.out.println(str2.length());
+        List<String> collect = Stream.of("10", "200").collect(Collectors.toList());
+        System.out.println(collect.stream().anyMatch(t -> "200".equals(t)));
+        System.out.println(collect.stream().allMatch(t -> "200".equals(t)));
 
     }
 

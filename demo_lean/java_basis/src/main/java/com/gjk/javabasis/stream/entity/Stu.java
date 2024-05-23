@@ -1,4 +1,4 @@
-package com.gjk.javabasis.stream;
+package com.gjk.javabasis.stream.entity;
 
 import java.math.BigDecimal;
 
@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 public class Stu {
 
     String className;
+    String id;
     Double ywCore;
     Double sxCore;
     BigDecimal yyCore;
