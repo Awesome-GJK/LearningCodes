@@ -1,9 +1,8 @@
 package main.java;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.concurrent.CompletableFuture;
 
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -13,15 +12,29 @@ import java.util.stream.Stream;
  * @date: 2022/6/23 16:25
  * @description:
  */
+@Slf4j
 public class Test {
 
 
 
     public static void main(String args[]) {
-        List<String> collect = Stream.of("10", "200").collect(Collectors.toList());
-        System.out.println(collect.stream().anyMatch(t -> "200".equals(t)));
-        System.out.println(collect.stream().allMatch(t -> "200".equals(t)));
 
+        CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> {
+
+            try {
+                System.out.println("runAsync:" + Thread.currentThread().getName());
+                throw new RuntimeException("error");
+            } catch (RuntimeException e) {
+                System.out.println("发生异常，捕获:" + Thread.currentThread().getName());
+            }
+        }).whenComplete((v, t) -> {
+            if (t != null) {
+                System.out.println("error:" + Thread.currentThread().getName());
+            } else {
+                System.out.println("whenComplete:" + Thread.currentThread().getName());
+            }
+        });
+        System.out.println("main");
     }
 
 

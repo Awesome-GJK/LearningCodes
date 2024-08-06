@@ -30,7 +30,7 @@ public class ThreadLocalDemo {
             5L,
             TimeUnit.SECONDS,
             new LinkedBlockingQueue<>(20),
-            new ThreadFactoryBuilder().setNameFormat("ThreadLocal-test-%d").build(),
+            new ThreadFactoryBuilder().setNameFormat("ThreadLocal-TwoTaskSerialable-%d").build(),
             new ThreadPoolExecutor.CallerRunsPolicy());
 
     public class RunnableDemo implements Runnable {
