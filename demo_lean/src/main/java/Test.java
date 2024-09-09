@@ -1,6 +1,7 @@
 package main.java;
 
-import java.util.concurrent.CompletableFuture;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,25 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 public class Test {
 
 
+    public static void main(String[] args) {
+        String str = "\"{\\\"content\\\":\\\"{\\\\\\\"notifyType\\\\\\\":1,\\\\\\\"paymentStatus\\\\\\\":1,\\\\\\\"terminalId\\\\\\\":\\\\\\\"1827898690985701378\\\\\\\",\\\\\\\"userId\\\\\\\":\\\\\\\"1828259733142470657\\\\\\\"}\\\",\\\"id\\\":\\\"1827898690985701378\\\",\\\"topicClass\\\":\\\"com.qcln.charge.server.application.redis.handler.StartChargeResultHandler\\\"}\"";
 
-    public static void main(String args[]) {
+        JSONObject jsonObject = JSON.parseObject(str);
 
-        CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> {
 
-            try {
-                System.out.println("runAsync:" + Thread.currentThread().getName());
-                throw new RuntimeException("error");
-            } catch (RuntimeException e) {
-                System.out.println("发生异常，捕获:" + Thread.currentThread().getName());
-            }
-        }).whenComplete((v, t) -> {
-            if (t != null) {
-                System.out.println("error:" + Thread.currentThread().getName());
-            } else {
-                System.out.println("whenComplete:" + Thread.currentThread().getName());
-            }
-        });
-        System.out.println("main");
     }
 
 

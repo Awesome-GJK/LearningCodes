@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!theme toy
+
+actor 充电用户
+
+充电用户 -> 小程序: 进行充值
+小程序 -> 财务服务: 调用充值接口
+activate 财务服务
+财务服务 -> 财务服务: 存在扣负，补充扣负流水明细
+财务服务 -> kafka: 发送补充扣负的<订单号,订单类型>消息
+deactivate 财务服务
+
+清分服务 -> kafka: 拉取补充扣负的<订单号,订单类型>消息
+activate 清分服务
+清分服务 -> 财务服务: 查询订单的消费流水明细
+activate 财务服务
+财务服务 --> 清分服务: 返回订单流水明细
+deactivate 财务服务
+清分服务 -> 清分服务: 删除旧的消费明细，构建新的消费明细
+清分服务 -> mysql: 数据入库
+@enduml
+
