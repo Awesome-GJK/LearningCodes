@@ -1,7 +1,8 @@
 package main.java;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.SftpException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,11 +18,17 @@ import lombok.extern.slf4j.Slf4j;
 public class Test {
 
 
-    public static void main(String[] args) {
-        String str = "\"{\\\"content\\\":\\\"{\\\\\\\"notifyType\\\\\\\":1,\\\\\\\"paymentStatus\\\\\\\":1,\\\\\\\"terminalId\\\\\\\":\\\\\\\"1827898690985701378\\\\\\\",\\\\\\\"userId\\\\\\\":\\\\\\\"1828259733142470657\\\\\\\"}\\\",\\\"id\\\":\\\"1827898690985701378\\\",\\\"topicClass\\\":\\\"com.qcln.charge.server.application.redis.handler.StartChargeResultHandler\\\"}\"";
+    public static void main(String[] args) throws SftpException {
+        String host = "180.169.95.129";
+        String user = "LZNYTZ_fan";
+        String password = "j3i6!E9X";
+        int port = 22;
+        ChannelSftp sftp = SftpClientUtils.connectSftpServer(host, port, user, password);
 
-        JSONObject jsonObject = JSON.parseObject(str);
+        // 切换到指定目录，不存在就创建
+        SftpClientUtils.toPathOrCreateDir(sftp, "/upload/20231015");
 
+        SftpClientUtils.sftpDisconnect(sftp);
 
     }
 
