@@ -2,6 +2,7 @@ package com.gjk.javabasis.stream;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class GroupingBy {
 
     public static void main(String[] args) {
 
-
+        classYWMaxCore();
 
     }
 
@@ -122,6 +123,38 @@ public class GroupingBy {
                 System.out.println("  Type: " + type + ", Sum: " + sum);
             });
         });
+    }
+
+    /**
+     * 求出每个班级语文最高的同学和得分
+     */
+    private static void classYWMaxCore() {
+        Stu stu1 = new Stu();
+        stu1.setClassName("1");
+        stu1.setId("a");
+        stu1.setYwCore(90.05d);
+
+        Stu stu2 = new Stu();
+        stu2.setClassName("2");
+        stu2.setId("b");
+        stu2.setYwCore(95.05d);
+
+        Stu stu3 = new Stu();
+        stu3.setClassName("2");
+        stu3.setId("c");
+        stu3.setYwCore(93.05d);
+
+        Stu stu4 = new Stu();
+        stu4.setClassName("1");
+        stu4.setId("d");
+        stu4.setYwCore(98.05d);
+
+        List<Stu> school = Stream.of(stu1, stu2, stu3, stu4).collect(Collectors.toList());
+        Map<String, Optional<Stu>> collect = school.stream().collect(Collectors.groupingBy(Stu::getClassName, Collectors.maxBy(Comparator.comparing(Stu::getYwCore))));
+        collect.forEach((k, v) -> {
+            System.out.println(k + "班" + v.get().getId() + "语文最高分：" + v.get().getYwCore());
+        });
+
     }
 
 
