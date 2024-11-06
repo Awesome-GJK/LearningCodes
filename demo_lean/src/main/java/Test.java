@@ -1,11 +1,14 @@
 package main.java;
 
 
-import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.jcraft.jsch.SftpException;
 
-import cn.hutool.core.util.NumberUtil;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -21,14 +24,12 @@ public class Test {
 
 
     public static void main(String[] args) throws SftpException {
+        List<String> list1 = Collections.emptyList();
+        List<String> list2 = Collections.emptyList();
+        List<String> list3 = Collections.emptyList();
 
-        BigDecimal bigDecimal1 = new BigDecimal("1.0");
-        BigDecimal bigDecimal2 = new BigDecimal("2.1");
-        BigDecimal bigDecimal3 = new BigDecimal("3.2");
+        List<String> collect1 = Stream.of(list1, list2, list3).flatMap(Collection::stream).collect(Collectors.toList());
 
-        int num = NumberUtil.add(bigDecimal1, bigDecimal2, bigDecimal3).multiply(new BigDecimal(100)).intValue();
-
-        System.out.println(String.valueOf(num));
     }
 
 
