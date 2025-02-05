@@ -28,6 +28,14 @@ public class GroupingBy {
 
     }
 
+    /***
+     *         // 找出电站最大功率，<stationId,功率值>
+     *         Map<String, String> =  equipmentList.stream().collect(
+     *                 Collectors.groupingBy(EquipmentPO::getStationId, //跟电站分组
+     *                         Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparingInt(o -> modelPowerMap.get(o.getEquipmentModel()))), //找功率最大的桩
+     *                                 max -> String.valueOf(modelPowerMap.getOrDefault(max.map(EquipmentPO::getEquipmentModel).orElse(null), 0)))));
+     */
+
     /**
      * 对stuList进行分组，求出各班级语数总分最高分
      */
