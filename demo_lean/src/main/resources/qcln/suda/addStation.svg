@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css"
+     height="456px" preserveAspectRatio="none" style="width:259px;height:456px;background:#FFFFFF;" version="1.1"
+     viewBox="0 0 259 456" width="259px" zoomAndPan="magnify">
+    <defs/>
+    <g>
+        <ellipse cx="117" cy="20" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="77.3398" x="78.3301" y="50"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="57.3398"
+              x="88.3301" y="72.9492">&#29983;&#25104;&#30005;&#31449;id
+        </text>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="182.6797" x="25.6602" y="155.2764"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="162.6797"
+              x="35.6602" y="178.2256">&#35745;&#36153;&#27169;&#29256;&#29983;&#25104;id&#65292;&#24182;&#22635;&#20805;&#30005;&#31449;id
+        </text>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="212"
+              x="11" y="211.2373"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="192" x="21"
+              y="234.1865">&#29983;&#25104;&#30005;&#31449;&#21644;&#35745;&#36153;&#27169;&#29256;&#30340;&#32465;&#23450;&#20851;&#31995;&#20449;&#24687;
+        </text>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="116"
+              x="59" y="267.1982"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="96" x="69"
+              y="290.1475">&#20445;&#23384;&#35745;&#36153;&#27169;&#29256;&#20449;&#24687;
+        </text>
+        <polygon fill="#F1F1F1"
+                 points="73,105.9609,161,105.9609,173,117.9609,161,129.9609,73,129.9609,61,117.9609,73,105.9609"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="11" x="121"
+              y="141.8311">&#26159;
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="88" x="73"
+              y="122.5156">&#26159;&#21542;&#26159;&#21333;&#30005;&#31449;&#23450;&#20215;
+        </text>
+        <polygon fill="#F1F1F1" points="117,323.1592,129,335.1592,117,347.1592,105,335.1592,117,323.1592"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="92"
+              x="71" y="367.1592"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="72" x="81"
+              y="390.1084">&#20445;&#23384;&#30005;&#31449;&#20449;&#24687;
+        </text>
+        <ellipse cx="117" cy="434.1201" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;"/>
+        <ellipse cx="117" cy="434.1201" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="117" x2="117" y1="30" y2="50"/>
+        <polygon fill="#181818" points="113,40,117,50,121,40,117,44" style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="117" x2="117" y1="191.2373" y2="211.2373"/>
+        <polygon fill="#181818" points="113,201.2373,117,211.2373,121,201.2373,117,205.2373"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="117" x2="117" y1="247.1982" y2="267.1982"/>
+        <polygon fill="#181818" points="113,257.1982,117,267.1982,121,257.1982,117,261.1982"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="117" x2="117" y1="129.9609" y2="155.2764"/>
+        <polygon fill="#181818" points="113,145.2764,117,155.2764,121,145.2764,117,149.2764"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="173" x2="233" y1="117.9609" y2="117.9609"/>
+        <polygon fill="#181818" points="229,219.2178,233,229.2178,237,219.2178,233,223.2178"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="233" x2="233" y1="117.9609" y2="335.1592"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="233" x2="129" y1="335.1592" y2="335.1592"/>
+        <polygon fill="#181818" points="139,331.1592,129,335.1592,139,339.1592,135,335.1592"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="117" x2="117" y1="303.1592" y2="323.1592"/>
+        <polygon fill="#181818" points="113,313.1592,117,323.1592,121,313.1592,117,317.1592"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="117" x2="117" y1="85.9609" y2="105.9609"/>
+        <polygon fill="#181818" points="113,95.9609,117,105.9609,121,95.9609,117,99.9609"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="117" x2="117" y1="347.1592" y2="367.1592"/>
+        <polygon fill="#181818" points="113,357.1592,117,367.1592,121,357.1592,117,361.1592"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="117" x2="117" y1="403.1201" y2="423.1201"/>
+        <polygon fill="#181818" points="113,413.1201,117,423.1201,121,413.1201,117,417.1201"
+                 style="stroke:#181818;stroke-width:1.0;"/><!--SRC=[KyyeAIaejjBNByX9p2ifpStHIyxFrKzCBiaiooofr4t9J4mlIipLJKejIUJYAYv9B2hXide-PVwpZWdFfsnzldfcPeer5rTcciQp6UkVJbW68dkdGcIUhflrPFTsJOMIZDGyaBGcbzMBTGjVRDdvRCN2vvqT44CoKzxlwNcwSzlJXQkVjhOYZ4Inu-ca7XITirgUxvu8DFvfw-RdctS_sR_mMUDwe9Od- -S-NJi3MILCAZKl9JCDfW1Y9aogk2I_W0i0]-->
+    </g>
+</svg>

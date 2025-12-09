@@ -1,0 +1,171 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+!theme aws-orange
+
+title 移动端发起充电流程(选终端)
+
+
+
+|用户|
+start
+:用户进入小程序;
+:进入终端详情页;
+
+|平台|
+:查询终端状态;
+if (终端是充电中状态？) then (no)
+
+    |用户|
+    :用户点击开始充电按钮;
+
+    |平台|
+    :查询用户钱包余额，以及余额不足提示阈值;
+    if (钱包余额>=提示阈值) then (yes)
+    |用户|
+    else  (no)
+
+        :提示“尊敬的客户，您账户余额已不足30元，请及时充值，以免因余额不足而充电跳枪。”;
+        if(去充值) then (yes)
+            :用户充值;
+            stop
+        else (no)
+            :继续充电;
+        endif
+
+    endif
+
+    |平台|
+    :查询终端信息;
+    if (判断终端、电桩是否启用， \n电站是否启用和运营，运营商是否未冻结) then (yes)
+
+        :查询用户信息;
+        if(判断用户是否冻结) then (yes)
+
+            if(白名单校验) then (yes)
+            |用户|
+            else(no)
+                :提示“当前站点暂未开放”;
+                stop
+            endif
+
+            |平台|
+            if(用户是否一号多充) then (yes)
+            else(no)
+                if(用户是否存在实时订单) then (yes)
+                    |用户|
+                    :提示“您当前有充电中订单，无法启动新的订单，是否立即查看实时订单!”;
+                    :跳转实时订单的充电页面;
+                    stop
+                else(no)
+                endif
+
+                |平台|
+                if(用户是否存在异常订单) then (yes)
+                    |用户|
+                    :提示“您当前有异常订单,请联系客服处理!”;
+                    stop
+                else(no)
+                endif
+
+                |平台|
+                if(用户是否存在未支付订单) then (yes)
+                    |用户|
+                    :提示“您有未支付充电订单,请先支付!”;
+                    :跳转待支付订单详情页面;
+                    stop
+                else(no)
+                endif
+            endif
+
+            |平台|
+            :查询用户账户钱包信息;
+            if(终端状态是否为占用未充电) then (yes)
+
+                :查询机构启充阈值;
+                if(用户余额大于等于启充阈值) then (no)
+                    |用户|
+                    :提示“账户余额不足，请先前往充值！”;
+                    :跳转充值页面;
+                    stop
+
+                |平台|
+                else(yes)
+                    :发送启动充电指令;
+
+                    fork
+                        |用户|
+                        :进入充电页面 \n显示“准备中···”蒙层 \n显示120s倒计时 \n启动webSocket窗口;
+                        #blue:(A)
+                        detach
+                    fork again
+                        |设备|
+                        :启动充电;
+                        fork
+                            if(是否启动成功) then (yes)
+
+                                :上送实时数据;
+                            else(no)
+                                |设备|
+                                stop
+                            endif
+                        fork again
+
+                            :上送启动充电结果报文;
+                         end fork
+                        :报文数据上送;
+                    |平台|
+                    end fork
+                endif
+
+                |平台|
+                :报文数据解析;
+                fork
+                    |平台|
+                    :启充结果报文解析;
+                fork again
+                    |平台|
+                    :实时数据解析;
+                fork again
+                    |平台|
+                    :启充超时定时任务处理;
+
+                end fork
+                :通过webSocket推送充电信息;
+            else(no)
+                |用户|
+                :提示“设备故障/充电中/未插枪/离线”;
+                stop
+            endif
+
+            |用户|
+            #blue:(A)
+            :充电页面去除“准备中···”蒙层;
+            if(充电状态是否为充电中) then (yes)
+               :展示充电实时数据;
+               stop
+            else (no)
+               :展示启动充电失败原因;
+               stop
+            endif
+
+        |用户|
+        else (no)
+            :提示“用户冻结”;
+            stop
+        endif
+        |用户|
+
+    else (no)
+        :终端、电桩、电站、运营商不可用提示语;
+        stop
+    endif
+
+|用户|
+else (yes)
+    :开始充电按钮置灰，不能操作;
+    stop
+endif
+
+
+
+@enduml

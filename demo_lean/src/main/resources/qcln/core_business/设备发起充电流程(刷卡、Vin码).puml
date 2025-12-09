@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+!theme blueprint
+
+title 设备发起充电流程(刷卡、Vin码)
+
+
+
+|用户|
+start
+:刷卡、Vin码充电;
+
+
+|设备|
+:携带卡/Vin码信息 \n向平台主动发起充电;
+
+
+
+@enduml

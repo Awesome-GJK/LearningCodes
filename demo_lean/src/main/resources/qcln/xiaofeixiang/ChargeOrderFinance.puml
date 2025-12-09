@@ -1,0 +1,117 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!theme toy
+
+actor 用户
+
+用户 -> 小程序: 选择钱包、选择卡券，发起充电
+activate 小程序
+小程序 -> charge服务: 调用启动充电接口
+activate charge服务
+charge服务 -> charge服务: 用户校验、白名单校验
+
+group 一号多充校验
+charge服务 -> marketing服务: <color red>查询用户一号多充限制数量</color>
+activate marketing服务
+marketing服务 --> charge服务: 获取用户一号多充限制数量
+deactivate marketing服务
+charge服务 -> order服务: <color red>查询订单数量</color>
+activate order服务
+order服务 --> charge服务: 获取订单数量
+deactivate order服务
+charge服务 -> charge服务: 一号多充校验
+end
+
+group 余额校验
+charge服务 -> finance服务: 查询用户账户信息
+activate finance服务
+finance服务 --> charge服务: 获取用户账户信息
+deactivate finance服务
+charge服务 -> marketing服务: <color red>查询用储值卡、能量卡</color>
+activate marketing服务
+marketing服务 --> charge服务: 获取用户储值卡、能量卡
+deactivate marketing服务
+charge服务 -> charge服务: 余额校验
+end
+
+charge服务 -> charge服务: 终端限制校验
+
+
+group 优惠券锁定
+charge服务 -> marketing服务: <color red>锁定用户优惠券（启充异常解锁）</color>
+activate marketing服务
+marketing服务 --> charge服务: 返回锁定结果
+deactivate marketing服务
+end
+
+
+charge服务 -> charge服务: 远程充电
+charge服务 --> 小程序: 充电中
+deactivate charge服务
+小程序 -> 用户: 展示充电中页面
+deactivate 小程序
+
+actor 充电桩
+充电桩 -> charge服务: 实时数据
+activate charge服务
+charge服务 -> order服务: 发送开始充电消息
+deactivate charge服务
+activate order服务
+order服务 --> order服务: 创建实时订单
+deactivate order服务
+
+
+
+充电桩 -> charge服务: 结算数据
+activate charge服务
+charge服务 -> order服务: 发送结束充电消息
+deactivate charge服务
+activate order服务
+order服务 --> order服务: 计算原价
+
+group 电站活动
+order服务 -> marketing服务: <color red>查询电站活动</color>
+activate marketing服务
+marketing服务 --> order服务: 返回电站活动
+deactivate marketing服务
+order服务 -> order服务: 电站活动优惠计算
+end
+
+group 会员折扣
+order服务 -> marketing服务: <color red>查询用户会员折扣</color>
+activate marketing服务
+marketing服务 --> order服务: 返回用户会员折扣
+deactivate marketing服务
+order服务 -> order服务: 会员折扣优惠计算
+end
+
+group 储值卡折扣
+order服务 -> marketing服务: <color red>查询用户支付储值卡折扣</color>
+activate marketing服务
+marketing服务 --> order服务: 返回用户支付储值卡折扣
+deactivate marketing服务
+order服务 -> order服务: 储值卡折扣优惠计算
+end
+
+group 优惠券抵扣
+order服务 -> marketing服务: <color red>查询用户优惠卡券</color>
+activate marketing服务
+marketing服务 --> order服务: 返回用户优惠卡券
+deactivate marketing服务
+order服务 -> order服务: 用户优惠卡券计算
+end
+
+order服务 -> order服务: 生成历史订单
+order服务 -> finance服务: <color red>发送订单结算消息</color>
+order服务 -> marketing服务: <color red>发送订单结算消息</color>
+deactivate order服务
+
+activate finance服务
+deactivate finance服务
+finance服务 -> finance服务: <color red>财务扣款，生成流水</color>
+
+
+activate marketing服务
+deactivate marketing服务
+marketing服务 -> marketing服务: <color red>卡扣款，生成使用记录</color>
+@enduml

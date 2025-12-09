@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:生成电站id;
+
+if(是否是单电站定价) then(是)
+:计费模版生成id，并填充电站id;
+:生成电站和计费模版的绑定关系信息;
+:保存计费模版信息;
+endif
+:保存电站信息;
+stop
+
+@enduml
