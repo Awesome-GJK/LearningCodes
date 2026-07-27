@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+!theme toy
+
+title 同步新增企业钱包
+
+start
+:财务监听新增企业消息;
+if (监管) is (yes) then
+  :不处理;
+else
+  :初始化钱包信息;
+  partition #red/yellow {
+
+  if (运营商) is (yes) then
+    :不处理;
+  else if (专属机构 || C端机构) is (yes) then
+    :授信额度为0，\r支付方式为个人支付, \r单次充电限额0;
+  else if(流量方 || 监管+流量方 || 车辆机构) is (yes) then
+    :授信额度为0，\r支付方式为集团支付，\r单次充电限额1000;
+  endif
+  }
+  :钱包信息入库;
+endif
+stop
+@enduml
+

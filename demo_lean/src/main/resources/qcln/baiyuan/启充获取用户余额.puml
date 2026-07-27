@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+!theme toy
+
+title 充电获取用户余额
+
+start
+:调用获取用户余额feign接口;
+:根据用户id查询用户钱包;
+if (用户是否是专属用户) is (yes) then
+  :用户钱包信息中填充支付方式为个人支付;
+  :返回用户钱包信息;
+else (no)
+  :根据钱包中的机构id查询机构钱包;
+  if (支付方式为个人支付) is (yes) then
+    :用户钱包信息中填充支付方式为个人支付;
+    :返回用户钱包信息;
+  else (no)
+    :用户钱包信息中填充支付方式为集团支付;
+    :获取下发金额(机构钱包余额 + 授信额度);
+    if (下发金额 > 单次充电限额) is (yes) then
+      :下发金额 = 单次充电限额;
+    else (no)
+      :下发金额不变;
+    endif
+    :将下发金额更新到用户钱包信息;
+  endif
+  :返回用户钱包信息;
+endif
+
+
+stop
+@enduml
+
+
+
+

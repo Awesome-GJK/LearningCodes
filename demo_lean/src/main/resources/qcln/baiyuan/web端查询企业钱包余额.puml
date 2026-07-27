@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+!theme toy
+
+title web端查询车辆机构余额
+
+start
+:调用getAccount接口;
+:根据机构id查询机构钱包;
+if (钱包为机构钱包) is (yes) then
+  :补充机构名称和机构编码;
+  if (运营商钱包) is (yes) then
+    :分账数据填充，原逻辑;
+  else (no)
+    : <color:red>根据钱包明细汇总B2B充值和企业虚拟充值剩余金额;
+    : <color:red>填充B2B充值金额和企业虚拟充值金额;
+  endif
+
+else (no)
+  :原逻辑，不处理;
+endif
+:返回机构钱包信息;
+stop
+@enduml

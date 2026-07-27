@@ -1,0 +1,15 @@
+
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+!theme toy
+
+title 启充获取用户余额
+
+start
+:调用getAccount接口;
+:根据用户id查询用户钱包;
+:返回用户钱包信息;
+stop
+@enduml
+
